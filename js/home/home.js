@@ -245,6 +245,8 @@ function cargarUsuario($id) {
         document.querySelector(`#emailGroup i`).classList.add("fa-check-circle");
         campos["email"] = true;
 
+        disabledBotonPass();
+
       } else {
         alert("Error en la consulta");
       }
@@ -260,51 +262,60 @@ let pass_click = true;
 
 document.getElementById("btnCambiarPass").addEventListener("click", (e) => {
   if (pass_click) {
-    pass_click = false;
-    document.getElementById('pass').removeAttribute("disabled");
-    document.getElementById('pass_re').removeAttribute("disabled");
-    document.getElementById('btnCambiarPass').classList.remove("btnPass");
-    document.getElementById('btnCambiarPass').classList.add("btnPass-activo");
-
-    document.getElementById(`passGroup`).classList.add("form-group-users");
-    document.getElementById(`passGroup`).classList.remove("form-group-users-disabled");
-    document.getElementById(`pass_reGroup`).classList.add("form-group-users");
-    document.getElementById(`pass_reGroup`).classList.remove("form-group-users-disabled");
+    enabledBotonPass();
   } else {
-    pass_click = true;
-    document.getElementById('pass').value = '';
-    document.getElementById('pass_re').value = '';
-    document.getElementById('pass').setAttribute("disabled", "");
-    document.getElementById('pass_re').setAttribute("disabled", "");
-
-    document.getElementById(`passGroup`).classList.add("form-group-users");
-    document.getElementById(`passGroup`).classList.remove("form-group-users-incorrecto");
-    document.getElementById(`passGroup`).classList.remove("form-group-users-correcto");
-    document.querySelector(`#passGroup i`).classList.remove("fa-check-circle");
-    document.querySelector(`#passGroup i`).classList.remove("fa-times-circle");
-    document.querySelector(`#passGroup .form-input-user-error`).classList.remove("form-input-user-error-activo");
-
-    document.getElementById(`pass_reGroup`).classList.add("form-group-users");
-    document.getElementById(`pass_reGroup`).classList.remove("form-group-users-incorrecto");
-    document.getElementById(`pass_reGroup`).classList.remove("form-group-users-correcto");
-    document.querySelector(`#pass_reGroup i`).classList.remove("fa-check-circle");
-    document.querySelector(`#pass_reGroup i`).classList.remove("fa-times-circle");
-    document.querySelector(`#pass_reGroup .form-input-user-error`).classList.remove("form-input-user-error-activo");
-
-    document.getElementById('formMensajeError').classList.remove('form-mensaje-error-modif-activo');
-
-    document.getElementById('btnCambiarPass').classList.add("btnPass");
-    document.getElementById('btnCambiarPass').classList.remove("btnPass-activo");
-
-    document.getElementById(`passGroup`).classList.remove("form-group-users");
-    document.getElementById(`passGroup`).classList.add("form-group-users-disabled");
-    document.getElementById(`pass_reGroup`).classList.remove("form-group-users");
-    document.getElementById(`pass_reGroup`).classList.add("form-group-users-disabled");
-
+    disabledBotonPass();
   }
 });
 
-//Registrar Usuario si todo está OK
+//--Volver Boton a Disabled para no cambiar password
+function disabledBotonPass() {
+  pass_click = true;
+  document.getElementById('pass').value = '';
+  document.getElementById('pass_re').value = '';
+  document.getElementById('pass').setAttribute("disabled", "");
+  document.getElementById('pass_re').setAttribute("disabled", "");
+
+  document.getElementById(`passGroup`).classList.add("form-group-users");
+  document.getElementById(`passGroup`).classList.remove("form-group-users-incorrecto");
+  document.getElementById(`passGroup`).classList.remove("form-group-users-correcto");
+  document.querySelector(`#passGroup i`).classList.remove("fa-check-circle");
+  document.querySelector(`#passGroup i`).classList.remove("fa-times-circle");
+  document.querySelector(`#passGroup .form-input-user-error`).classList.remove("form-input-user-error-activo");
+
+  document.getElementById(`pass_reGroup`).classList.add("form-group-users");
+  document.getElementById(`pass_reGroup`).classList.remove("form-group-users-incorrecto");
+  document.getElementById(`pass_reGroup`).classList.remove("form-group-users-correcto");
+  document.querySelector(`#pass_reGroup i`).classList.remove("fa-check-circle");
+  document.querySelector(`#pass_reGroup i`).classList.remove("fa-times-circle");
+  document.querySelector(`#pass_reGroup .form-input-user-error`).classList.remove("form-input-user-error-activo");
+
+  document.getElementById('formMensajeError').classList.remove('form-mensaje-error-modif-activo');
+
+  document.getElementById('btnCambiarPass').classList.add("btnPass");
+  document.getElementById('btnCambiarPass').classList.remove("btnPass-activo");
+
+  document.getElementById(`passGroup`).classList.remove("form-group-users");
+  document.getElementById(`passGroup`).classList.add("form-group-users-disabled");
+  document.getElementById(`pass_reGroup`).classList.remove("form-group-users");
+  document.getElementById(`pass_reGroup`).classList.add("form-group-users-disabled");
+}
+
+//--Volver Boton a Disabled para no cambiar password
+function enabledBotonPass() {
+  pass_click = false;
+  document.getElementById('pass').removeAttribute("disabled");
+  document.getElementById('pass_re').removeAttribute("disabled");
+  document.getElementById('btnCambiarPass').classList.remove("btnPass");
+  document.getElementById('btnCambiarPass').classList.add("btnPass-activo");
+
+  document.getElementById(`passGroup`).classList.add("form-group-users");
+  document.getElementById(`passGroup`).classList.remove("form-group-users-disabled");
+  document.getElementById(`pass_reGroup`).classList.add("form-group-users");
+  document.getElementById(`pass_reGroup`).classList.remove("form-group-users-disabled");
+}
+
+//--Registrar Usuario si todo está OK
 function editUser($from) {
   const http = new XMLHttpRequest();
   const url = "controller/usuarios.controller.php";
